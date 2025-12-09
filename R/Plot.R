@@ -19,7 +19,6 @@ pl <- ggplot2::ggplot(data, ggplot2::aes(x = .data[[var]])) +
   ) +
   ggplot2::labs(
     title = paste("Distribution of", var),
-    subtitle = sprintf("Mean = %.2f | Median = %.2f", mean_val, median_val),
     x = "var",
     y = "Count"
   ) +
