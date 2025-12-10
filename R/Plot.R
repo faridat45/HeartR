@@ -1,28 +1,39 @@
-pl <- ggplot2::ggplot(data, ggplot2::aes(x = .data[[var]])) +
-  ggplot2::geom_histogram(
-    bins = 30,
-    fill = "skyblue",
-    color = "white",
-    alpha = 0.7
-  ) +
-  ggplot2::geom_vline(
-    xintercept = mean_val,
-    color = "red",
-    linetype = "dashed",
-    linewidth = 1
-  ) +
-  ggplot2::geom_vline(
-    xintercept = median_val,
-    color = "black",
-    linetype = "dotted",
-    linewidth = 1
-  ) +
-  ggplot2::labs(
-    title = paste("Distribution of", var),
-    x = "var",
-    y = "Count"
-  ) +
-  ggplot2::theme_minimal()
+library(devtools)
+load("~/Documents/R-studio/heartR/data/heart_disease_data.rda")
+heart <- heart_disease_data
+heart
+plot_heart <- function(data,var){
+  mu   <- mean(data[[var]], na.rm = TRUE)
+  median1 <- median(data[[var]], na.rm = TRUE)
 
-# Convert to a Plotly plot
-plotly::ggplotly(pl)
+  pl <- ggplot2::ggplot(data=data, ggplot2::aes(x = .data[[var]])) +
+    ggplot2::geom_histogram(
+      bins = 30,
+      fill = "skyblue",
+      color = "orange",
+      alpha = 0.7
+    ) +
+    ggplot2::geom_vline(
+      xintercept = mu,
+      color = "yellow",
+      linetype = "dashed",
+      linewidth = 1
+    ) +
+    ggplot2::geom_vline(
+      xintercept = median1,
+      color = "pink",
+      linetype = "dotted",
+      linewidth = 1
+    ) +
+    ggplot2::labs(
+      title = paste("Distribution of", var),
+      x = "var",
+      y = "Count"
+    ) +
+    ggplot2::theme_minimal()
+
+  plotly::ggplotly(pl) ## convert histogram to plotly makes it interactive
+}
+
+
+plot_heart(heart, "Asge")
