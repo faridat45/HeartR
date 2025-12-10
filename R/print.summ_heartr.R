@@ -46,3 +46,6 @@ print.summ_heartr<- function(x) {
 
 
 
+a <- summ_heartr(heart_disease_data$Age, heart_disease_data$Weight, heart_disease_data$BMI)
+
+print(a)
