@@ -1,7 +1,4 @@
-library(devtools)
-load("~/Documents/R-studio/heartR/data/heart_disease_data.rda")
-heart <- heart_disease_data
-heart
+
 plot_heart <- function(data,var){
   mu   <- mean(data[[var]], na.rm = TRUE)
   median1 <- median(data[[var]], na.rm = TRUE)
@@ -36,4 +33,4 @@ plot_heart <- function(data,var){
 }
 
 
-plot_heart(heart, "Asge")
+
