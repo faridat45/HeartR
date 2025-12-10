@@ -43,3 +43,6 @@ print.summ_heartr<- function(x) {
   print(gt_table)
   invisible(x)
 }
+
+
+
