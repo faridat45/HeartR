@@ -1,7 +1,27 @@
-simulation <- function(seed = 403, n = nrow(heart_dat)){
-  # library(readr)
-  # library(MASS)
-  # library(tidyverse)
+# dealing with 'no visible binding' note as recommended in lecture 11
+utils::globalVariables(c("heart_dat","p_hat"))
+
+#' Simulation
+#'
+#' This function generates reproducible synthetic datasets
+#'
+#' @param seed random seed
+#' @param n number of rows to data
+#'
+#' @return A synthetic dataset with continuous, categorical and outcome variables
+#'
+#' @importFrom MASS mvrnorm
+#' @importFrom stats glm cov predict binomial median IQR
+#' @importFrom utils data
+#' @importFrom dplyr mutate select
+#' @export
+simulation <- function(seed = 403, n = NULL){
+    data("heart_dat", package = "HeartR", envir = environment())
+
+  if(is.null(n)){
+    n <- nrow(heart_dat)
+  }
+
   set.seed(seed)
 
   bounds <-function(x,min,max){
@@ -23,7 +43,6 @@ simulation <- function(seed = 403, n = nrow(heart_dat)){
 
   # multivariate normal data
   contData <- MASS::mvrnorm(n, mu,sigma)
-
   # to make sure there are no decimals. We wouldn't say someone is 34.8715 years old
   contData <- as.data.frame(round(contData))
   # View(contData)
@@ -39,17 +58,17 @@ simulation <- function(seed = 403, n = nrow(heart_dat)){
   contData$BMI <- bounds(contData$BMI, 18, 40)
 
   # n <- nrow(heart_dat)
-  gender_prob <- table(heart_dat$Gender)/n
-  smoking_prob <- table(heart_dat$Smoking)/n
-  alcohol_prob <- table(heart_dat$Alcohol_Intake)/n
-  activity_prob <- table(heart_dat$Physical_Activity)/n
-  diet_prob <- table(heart_dat$Diet)/n
-  stress_prob <- table(heart_dat$Stress_Level)/n
-  hypertension_prob <- table(heart_dat$Hypertension)/n
-  diabetes_prob <- table(heart_dat$Diabetes)/n
-  hyperlipidemia_prob <- table(heart_dat$Hyperlipidemia)/n
-  family_prob <- table(heart_dat$Family_History)/n
-  prevHA_prob <- table(heart_dat$Previous_Heart_Attack)/n
+  gender_prob <- prop.table(table(heart_dat$Gender))
+  smoking_prob <- prop.table(table(heart_dat$Smoking))
+  alcohol_prob <- prop.table(table(heart_dat$Alcohol_Intake))
+  activity_prob <- prop.table(table(heart_dat$Physical_Activity))
+  diet_prob <- prop.table(table(heart_dat$Diet))
+  stress_prob <- prop.table(table(heart_dat$Stress_Level))
+  hypertension_prob <- prop.table(table(heart_dat$Hypertension))
+  diabetes_prob <- prop.table(table(heart_dat$Diabetes))
+  hyperlipidemia_prob <- prop.table(table(heart_dat$Hyperlipidemia))
+  family_prob <- prop.table(table(heart_dat$Family_History))
+  prevHA_prob <- prop.table(table(heart_dat$Previous_Heart_Attack))
 
   Gender <- sample(names(gender_prob), n, replace = TRUE, prob = gender_prob)
   Smoking <- sample(names(smoking_prob), n, replace = TRUE, prob = smoking_prob)
@@ -80,5 +99,3 @@ simulation <- function(seed = 403, n = nrow(heart_dat)){
   return(synthetic_data)
 
 }
-sim_data <- simulation(seed = 123)
-head(sim_data)

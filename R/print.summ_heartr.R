@@ -1,5 +1,10 @@
+# dealing with 'no visible binding' note as recommended in lecture 11
+utils::globalVariables("Variable")
 
-print.summ_heartr<- function(x) {
+#' @export
+print.summ_heartr<- function(x, ...) {
+
+
   if(!inherits(x, "summ_heartr")) stop("x must be of class summ_heartr")
 
   z <- unclass(x)

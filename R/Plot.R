@@ -1,5 +1,8 @@
+# dealing with 'no visible binding' note as recommended in lecture 11
+utils::globalVariables(".data")
 
 plot_heart <- function(data,var){
+
   mu   <- mean(data[[var]], na.rm = TRUE)
   median1 <- median(data[[var]], na.rm = TRUE)
 
