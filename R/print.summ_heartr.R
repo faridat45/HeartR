@@ -24,7 +24,7 @@ print.summ_heartr<- function(x, ...) {
       SD = gt::md("**Standard, <br>Deviation**"),
       Var = gt::md("**Variance**")) |>
     gt::tab_style(
-      style = gt::cell_borders( color = "pink4"),
+      style = gt::cell_borders( color = "pink"),
       locations = gt::cells_body())  |>
     gt::cols_width(
       Variable ~ gt::px(90),
