@@ -195,4 +195,4 @@ plot_heart(heart, "boxplot", var_x = "Age")
 plot_heart(heart, "hist", var_x = "BMI") # histogram of BMI
 plot_heart(heart, "correlation") # correlation of heart dataset
 
-devtools::check()
+
