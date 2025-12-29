@@ -122,17 +122,3 @@ plot_heart <- function(data,
     }
   )
 }
-# Histogram
-plot_heart(heart_dat, "hist", var_x = "BMI")
-
-# Density
-plot_heart(heart_dat, "density", var_x = "Age")
-
-# Scatter: predictor vs predictor
-plot_heart(heart_dat, "scatter", var_x = "Age", var_y = "BMI")
-
-# Boxplot: categorical vs numeric
-plot_heart(heart_dat, "boxplot", var_x = "Age", var_y = "Heart_Disease")
-
-# Correlation matrix
-plot_heart(heart_dat, "correlation")
