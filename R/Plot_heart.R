@@ -27,16 +27,18 @@
 #' (1 = highest, 0 = lowest)
 #'
 #' @examples
+#' data("heart_dat")
+#' heart <- heart_dat
 # Histogram
-#'plot_heart(heart_dat, "hist", var_x = "BMI")
+#'plot_heart(heart, "hist", var_x = "BMI")
 # Density
-#plot_heart(heart_dat, "density", var_x = "Age")
+#plot_heart(heart, "density", var_x = "Age")
 # Scatter: predictor vs predictor
-#'plot_heart(heart_dat, "scatter", var_x = "Age", var_y = "BMI")
+#'plot_heart(heart, "scatter", var_x = "Age", var_y = "BMI")
 # Boxplot: categorical vs numeric
-#'plot_heart(heart_dat, "boxplot", var_x = "Age", var_y = "Heart_Disease")
+#'plot_heart(heart, "boxplot", var_x = "Age", var_y = "Heart_Disease")
 # Correlation matrix
-#'plot_heart(heart_dat, "correlation")
+#'plot_heart(heart, "correlation")
 #'
 #'@importFrom tidyverse
 #'@importFrom ("stats", "cor")
@@ -117,8 +119,7 @@ plot_heart <- function(data,
                              high = "red",
                              midpoint = 0) +
         labs(title = "Correlation Matrix") +
-        theme_minimal() +
-        theme(axis.text.x = element_text(angle = 45, hjust = 1))
+        theme_minimal()
     }
   )
 }
