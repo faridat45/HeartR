@@ -41,9 +41,6 @@
 #'plot_heart(heart, "correlation")
 #'
 #'@importFrom tidyverse
-#'@importFrom ("stats", "cor")
-#'@importFrom ggplot2
-#'@importFrom plotly
 #'@export
 #'
 plot_heart <- function(data,
@@ -123,8 +120,8 @@ plot_heart <- function(data,
     }
   )
 }
-
-
+head(data("heart_dat"))
+head(heart_dat)
 
 
 
