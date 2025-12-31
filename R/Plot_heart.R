@@ -33,8 +33,6 @@
 #'plot_heart(heart, "hist", var_x = "BMI")
 # Density
 #plot_heart(heart, "density", var_x = "Age")
-# Scatter: predictor vs predictor
-#'plot_heart(heart, "scatter", var_x = "Age", var_y = "BMI")
 # Boxplot: categorical vs numeric
 #'plot_heart(heart, "boxplot", var_x = "Age", var_y = "Heart_Disease")
 # Correlation matrix
@@ -83,15 +81,6 @@ plot_heart <- function(data,
       labs(title = paste("Density of", var_x),
            x = var_x,
            y = "Density") +
-      theme_minimal(),
-
-    # Scatter plot
-    scatter =
-      ggplot(data, aes_string(x = var_x, y = var_y)) +
-      geom_point() +
-      labs(title = paste(var_x, "vs", var_y),
-           x = var_x,
-           y = var_y) +
       theme_minimal(),
 
     # Boxplot
