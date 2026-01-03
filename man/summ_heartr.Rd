@@ -21,7 +21,7 @@ mean, minimum, 1st quartile, median, 3rd quartile, maximum, standard deviation a
 A dedicated \code{\link{print.summ_heartr}} method is provided for objects of class \code{"summ_heartr"}.
 }
 \examples{
-weight_height_bmisumm <- summ_heartr(heart_dat$Weight, heart_dat$Height, heart_dat$BMI)
+summ_heartr(heart_dat$Weight, heart_dat$Height, heart_dat$BMI)
 
 
 
