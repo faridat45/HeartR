@@ -53,4 +53,3 @@ plot_heart <- function(data,var){
 
   plotly::ggplotly(pl) ## convert histogram to plotly makes it interactive
 }
-
