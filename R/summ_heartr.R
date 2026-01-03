@@ -22,7 +22,7 @@
 summ_heartr <- function(...){
   input <- list(...)
 
-  if(!is.numeric(input)) stop("argument is not numeric")
+  if(!all(sapply(input, is.numeric))) {stop("argument is not numeric")}
 
   names1 <- sapply(substitute(list(...))[-1], deparse)
   newnames <- sapply(names1, function(y){
