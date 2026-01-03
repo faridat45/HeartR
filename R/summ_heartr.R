@@ -11,7 +11,9 @@
 #' @note A dedicated \code{\link{print.summ_heartr}} method is provided for objects of class \code{"summ_heartr"}.
 #'
 #' @seealso \code{\link{print.summ_heartr}}
+#'
 #' @export
+#'
 #' @author Ciara Olohan - <\email{ciara.olohan.2023@@mumail.ie}>
 #' @importFrom stats "quantile" "median" "sd" "var"
 #' @examples
