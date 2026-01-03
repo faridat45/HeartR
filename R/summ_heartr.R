@@ -5,7 +5,7 @@
 #'
 #' @param ... One or more numeric variables.
 #'
-#' @returns An object of class summ_heartr containing the following statistics for each input variable:
+#' @return An object of class summ_heartr containing the following statistics for each input variable:
 #' mean, minimum, 1st quartile, median, 3rd quartile, maximum, standard deviation and variance.
 #'
 #' @note A dedicated \code{\link{print.summ_heartr}} method is provided for objects of class \code{"summ_heartr"}.
