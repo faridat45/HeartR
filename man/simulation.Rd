@@ -10,8 +10,7 @@ simulation(
   data = NULL,
   contVars = NULL,
   catVars = NULL,
-  outcome_model = NULL,
-  outcome = "Heart_Disease",
+  outcome = "target",
   mu = NULL,
   sigma = NULL
 )
@@ -19,25 +18,22 @@ simulation(
 \arguments{
 \item{seed}{random seed for reproducibility}
 
-\item{n}{number of rows in the synthetic datasets.Deaults to the number of rows in
+\item{n}{number of rows in the synthetic datasets. Deaults to the number of rows in
 \code{data}.}
 
-\item{data}{dataset the user wishes to replicate. If \code{NULL}, a heart
+\item{data}{dataset the user wishes to replicate. If \code{NULL}, heart
 disease dataset is used.}
 
 \item{contVars}{character vector of continuous numeric variables in \code{data}.
 If \code{NULL} then all numeric variables are used.}
 
 \item{catVars}{character vector of categorical variables in \code{data}. If
-\code{NULL} then all factor or categorical variables, excluding the outcome,
+\code{NULL} then all factor/ categorical variables, excluding the outcome,
 are used}
-
-\item{outcome_model}{fitted binary logistic regression model. If \code{NULL}
-a logistic regression model is fit using \code{glm()}}
 
 \item{outcome}{name of the binary outcome variable in \code{data}}
 
-\item{mu}{optional named vector of means used to simulate continuous variables.}
+\item{mu}{optional named vector of means used to simulate continuous variables}
 
 \item{sigma}{optional covariance matrix to simulate continuous variables.}
 }
@@ -50,8 +46,25 @@ classification. The current version only works for datasets in which the respons
 variable has exactly two possible values.
 }
 \examples{
+
 sim_data <- simulation(seed = 123)
+
 sim_data2 <- simulation(seed = 23, n = 50)
+
+sim_data3 <- simulation(data, n = 100,
+  mu = c(age = 55, cholesterol = 220, restingBP = 130))
+
+sim_dat4 <- simulation(data, n = 80,
+contVars = c("age", "cholesterol","restingBP"),
+catVars = c("sex","chestPT","exerAngina")
+)
+
+sim_dat5 <- simulation(data, n = 80,
+contVars = c("age", "cholesterol","restingBP"),
+catVars = c("sex","chestPT","exerAngina"),
+sigma = cov(heart_dat[, c("age", "cholesterol","restingBP")])
+)
+
 sim_mtcars <- simulation(data = mtcars, outcome = "am")
 }
 \author{

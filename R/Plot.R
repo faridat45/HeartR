@@ -17,10 +17,9 @@ utils::globalVariables(".data")
 #' "theme_minimal"
 #' @importFrom plotly "ggplotly"
 #' @export
-#' @examples
 #'
 #'
-plot_heart <- function(data,var){
+Plot <- function(data,var){
 
   mu   <- mean(data[[var]], na.rm = TRUE)
   median1 <- median(data[[var]], na.rm = TRUE)

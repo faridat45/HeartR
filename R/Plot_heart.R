@@ -1,10 +1,11 @@
+utils::globalVariables(c("..density..","Var1","Var2","Freq"))
 #' Heart Data Plotting Function
 #' Aim: to Visualize the heart data and explore how predictors relate to heart disease.
 #' `plot_heart` allows users to explore their heart disease dataset visually.
 #' It provides multiple types of plots to investigate relationships between predictors.
 #' and the response variable (`Heart_Disease`).
 #' Also able to explore relationship between predictors as well.
-#' @param heart_dat is the dataset.
+#' @param data is the dataset.
 #' @param type indicate which type of plot to generate. Options are:
 #'   \describe{
 #'     \item{"hist"}{Histogram with density overlay for a numeric predictor.}
@@ -27,20 +28,21 @@
 #' (1 = highest, 0 = lowest)
 #'
 #' @examples
-#' data("heart_dat")
-#' heart <- heart_dat
-# Histogram
-#'plot_heart(heart, "hist", var_x = "BMI")
-# Density
-#plot_heart(heart, "density", var_x = "Age")
-# Boxplot: categorical vs numeric
-#'plot_heart(heart, "boxplot", var_x = "Age", var_y = "Heart_Disease")
-# Correlation matrix
-#'plot_heart(heart, "correlation")
+#' data("heart_dat_old", package = "HeartR")
+#' heart <- heart_dat_old
+#' # Histogram
+#' plot_heart(heart, "hist", var_x = "BMI")
+#' # Density
+#' # plot_heart(heart, "density", var_x = "Age")
+#' # Boxplot: categorical vs numeric
+#' plot_heart(heart, "boxplot", var_x = "Age", var_y = "Heart_Disease")
+#' # Correlation matrix
+#' plot_heart(heart, "correlation")
 #'
-#'@importFrom tidyverse
-#'@export
-#'
+#' @importFrom ggplot2 ggplot aes geom_histogram geom_density geom_point geom_boxplot
+#' @importFrom ggplot2 geom_tile geom_text scale_fill_gradient2 labs theme_minimal aes_string
+#' @importFrom stats cor
+#' @export
 plot_heart <- function(data,
                        type = c("hist", "density", "scatter", "boxplot", "correlation"),
                        var_x = NULL,
@@ -109,8 +111,8 @@ plot_heart <- function(data,
     }
   )
 }
-head(data("heart_dat"))
-head(heart_dat)
+# head(data("heart_dat"))
+# head(heart_dat)
 
 
 

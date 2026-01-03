@@ -1,32 +1,36 @@
 #' Heart Disease Dataset
 #'
-#' Synthetic heart disease detection dataset containing 50000 patients
-#' (24890 male and 25110 female)
+#' Heart disease dataset containing clinical information on 745 patients
+#' (563 male and 182 female)
 #'
-#' @format A data frame with 50000 observations and 21 variables
+#' @format A data frame with 745 observations and 12 variables:
 #' \describe{
-#'  \item{Age}{Age of the patient (numeric)}
-#'  \item{Gender}{categorical variable with levels \code{female, male}}
-#'  \item{Weight}{weight in kilograms (numeric)}
-#'  \item{Height}{height, centimeters (numeric)}
-#'  \item{BMI}{body mass index (numeric)}
-#'  \item{Smoking}{categorical, levels = \code{Never, Current, Former}}
-#'  \item{Alcohol_Intake}{categorical variable with levels \code{None, Low, Moderate, High}}
-#'  \item{Physical_Activity}{categorical variable with levels \code{Sedentary, Active, Moderate}}
-#'  \item{Diet}{categorical variable with levels \code{Unhealthy, Average, Healthy}}
-#'  \item{Stress_Level}{categorical variable with levels \code{Low, Medium, High}}
-#'  \item{Hypertension}{binary variable \code{0, 1}}
-#'  \item{Diabetes}{binary variable \code{0, 1}}
-#'  \item{Hyperlipidemia}{binary variable \code{0, 1}}
-#'  \item{Family_History}{binary variable \code{0, 1}}
-#'  \item{Previous_Heart_Attack}{binary variable, levels = \code{0, 1}}
-#'  \item{Systolic_BP}{systolic blood pressure (numeric)}
-#'  \item{Diastolic_BP}{diastolic blood pressure (numeric)}
-#'  \item{Heart_Rate}{resting heart rate (numeric)}
-#'  \item{Blood_Sugar_Fasting}{fasting blood sugar level (numeric)}
-#'  \item{Cholesterol_Total}{total cholesterol level (numeric)}
-#'  \item{Heart_Disease}{binary outcome variable: 0 = No disease, 1 = disease}
+#'  \item{age}{age of the patient (numeric)}
+#'  \item{sex}{sex of the patient (\code{1 = male, 0 = female})}
+#'  \item{chestPT}{type of chest pain
+#'  (\code{1 = typical angina, 2 = atypical angina, 3 = non-anginal pain, 4 = asymptomatic})}
+#'  \item{restingBP}{resting blood pressure in mm Hg (numeric)}
+#'  \item{cholesterol}{serum cholesterol in mg/dl (numeric)}
+#'  \item{fastingBS}{fasting blood sugar in mg/dl
+#'  (\code{0 = fbs <= 120 mg/dl, 1 = fbs > 120 mg/dl})}
+#'  \item{restingECG}{resting electrocardiographic results, records the electrical signals in the heart
+#'  (\code{0 = normal heart electrical activity, 1 = ST-T abnormality
+#'  (suggests heart isn't getting enough oxygen),  2 = left ventricular hypertrophy
+#'  pattern (suggests the heart's main pumping chamber is working harder than usual)})}
+#'  \item{maxHeartRate}{maximum heart rate achieved (numeric)}
+#'  \item{exerAngina}{exercise induced angina(tells you whether the patient experienced chest pain during exercise)
+#'  \code{1 = yes, 0 = no} }
+#'  \item{oldpeak}{ST depression induced by exercise relative to rest (numeric)}
+#'  \item{STslope}{shows how the ecg line changes at peak exercise (i.e.  when
+#'  the person is working the hardest during exercise)
+#'  (\code{1 = upsloping, 2 = flat, 3 = downsloping})}
+#'  \item{target}{heart disease outcome
+#'  (\code{1 = heart disease, 0 = no heart disease})}
 #' }
+#' @details
+#' This dataset is adjusted from the Heart Disease dataset at the UCI Machine Learning Repository:
+#' https://archive.ics.uci.edu/dataset/45/heart+disease
+#'
 #'
 #' @docType data
 #' @keywords datasets
