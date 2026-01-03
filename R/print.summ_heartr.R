@@ -1,8 +1,8 @@
 #' Print summ_heartr output
 #'
-#' Provides a nice customisable table for the output of  \code{link{summ_heartr}.
+#' Provides a nice customisable table for the output of the summ_heartr function.
 #'
-#' @param x An object of class \code{"summ_heartr"} outputted from the \code{link{summ_heartr}} function.
+#' @param x An object of class \code{"summ_heartr"} outputted from the summ_heartr function.
 #' @param bordercolour Colour of the cell borders. Must be in quotations. Default colour of pink is used.
 #' @param fillcolour Colour of the Variable cells. Must be in quotations. Default colour of #FFEDFB is used
 #' @param font Google style used in the table. Must be a Google font which can be found \href{https://fonts.google.com/}{here}.
