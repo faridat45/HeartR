@@ -8,43 +8,58 @@ utils::globalVariables(c("p_hat","heart_dat"))
 #' variable has exactly two possible values.
 #'
 #' @param seed random seed for reproducibility
-#' @param n number of rows in the synthetic datasets.Deaults to the number of rows in
+#' @param n number of rows in the synthetic datasets. Deaults to the number of rows in
 #' \code{data}.
-#' @param data dataset the user wishes to replicate. If \code{NULL}, a heart
+#' @param data dataset the user wishes to replicate. If \code{NULL}, heart
 #' disease dataset is used.
 #' @param contVars character vector of continuous numeric variables in \code{data}.
 #' If \code{NULL} then all numeric variables are used.
 #' @param catVars character vector of categorical variables in \code{data}. If
-#' \code{NULL} then all factor or categorical variables, excluding the outcome,
+#' \code{NULL} then all factor/ categorical variables, excluding the outcome,
 #' are used
-#' @param outcome_model fitted binary logistic regression model. If \code{NULL}
-#' a logistic regression model is fit using \code{glm()}
 #' @param outcome name of the binary outcome variable in \code{data}
-#' @param mu optional named vector of means used to simulate continuous variables.
+#' @param mu optional named vector of means used to simulate continuous variables
 #' @param sigma optional covariance matrix to simulate continuous variables.
 #'
 #' @return A synthetic dataset with continuous, categorical and outcome variables
 #'
 #' @importFrom MASS mvrnorm
-#' @importFrom stats glm cov predict binomial median IQR as.formula
+#' @importFrom stats glm cov predict binomial as.formula
 #' @importFrom utils data
-#' @importFrom dplyr select setdiff
+#' @importFrom dplyr select setdiff where
 #'
 #' @export
 #' @author Faridat Adeniji - <\email{faridaadeniji@@gmail.com}>
 #' @examples
+#'
 #' sim_data <- simulation(seed = 123)
+#'
 #' sim_data2 <- simulation(seed = 23, n = 50)
+#'
+#' sim_data3 <- simulation(data = heart_dat, n = 100,
+#'   mu = c(age = 55, cholesterol = 220, restingBP = 130))
+#'
+#' sim_dat4 <- simulation(data = heart_dat, n = 80,
+#' contVars = c("age", "cholesterol","restingBP"),
+#' catVars = c("sex","chestPT","exerAngina")
+#' )
+#'
+#' sim_dat5 <- simulation(data = heart_dat, n = 80,
+#' contVars = c("age", "cholesterol","restingBP"),
+#' catVars = c("sex","chestPT","exerAngina"),
+#' sigma = cov(heart_dat[, c("age", "cholesterol","restingBP")])
+#' )
+#'
 #' sim_mtcars <- simulation(data = mtcars, outcome = "am")
 simulation <- function(seed = 403, n = NULL,
                        data = NULL,
                        contVars = NULL,
                        catVars = NULL,
-                       outcome_model = NULL,
-                       outcome = "Heart_Disease",
+                       outcome = "target",
                        mu = NULL, sigma = NULL){
+  # Load heart dataset if data = NULL
   if(is.null(data)){
-    data("heart_dat", package = "HeartR", envir = environment())
+    utils::data("heart_dat", package = "HeartR", envir = environment())
     data <- heart_dat
   }
   set.seed(seed)
@@ -52,16 +67,21 @@ simulation <- function(seed = 403, n = NULL,
   if(is.null(n)){
     n <- nrow(data)
   }
+  # automatically select numeric variables if not specified
   if(is.null(contVars)){
-    contVars <- names(data[sapply(data,is.numeric)])
+    contVars <- data |>
+      dplyr::select(dplyr::where(is.numeric))|>
+      names()
   }
-
+  contVars <- dplyr::setdiff(contVars, outcome)
+  # making sure values stay within min/max
   bounds <-function(x,min,max){
     x[x<min] <- min
     x[x>max] <- max
     return(x)
   }
 
+  # for later bounding
   bounds2 <- lapply(contVars, function(x){
     c(
       min = min(data[[x]], na.rm = TRUE),
@@ -69,6 +89,7 @@ simulation <- function(seed = 403, n = NULL,
     )
   })
   names(bounds2) <- contVars
+
 
   defaultMU <- colMeans(data[, contVars])
 
@@ -82,26 +103,30 @@ simulation <- function(seed = 403, n = NULL,
 
   # covariance matrix
   if(is.null(sigma)){
-    sigma <- cov(data[, contVars])
+    sigma <- stats::cov(data[, contVars])
   }else{
     if(!is.matrix(sigma)){
       stop("sigma should be a covariance matrix")
     }
   }
 
-  # multivariate normal data
+  # continuous variables using multivariate normal distribution
   contData <- MASS::mvrnorm(n, mu,sigma)
   contData <- as.data.frame(round(contData))
 
+  # applying bounds
   for(x in contVars){
     contData[[x]] <- bounds(contData[[x]], bounds2[[x]]["min"], bounds2[[x]]["max"])
   }
 
-  # automatically finding names of categorical variables
+  # automatically finding categorical variables
   if(is.null(catVars)){
-    catVars <- names(data[sapply(data, function(x) is.factor(x) || is.character(x))])
-    catVars <- setdiff(catVars, outcome) #remove response var in case it's in catVars
+    catVars <- data |>
+      dplyr::select(where(\(x) is.factor(x) || is.character(x)))|>
+      names()
+    catVars <- dplyr::setdiff(catVars, outcome) #remove outcome var in case it's in catVars
   }
+
   catData <- lapply(catVars, function(x){
     probs <- prop.table(table(data[[x]]))
     sample(names(probs), n, replace = TRUE, prob = probs)
@@ -109,11 +134,6 @@ simulation <- function(seed = 403, n = NULL,
   catData <- as.data.frame(catData)
   names(catData) <- catVars
 
-
-
-  #synthetic_data <- data.frame(contData,Gender,Smoking,Alcohol_Intake,
-                               #Physical_Activity,Diet, Stress_Level,Hypertension,Diabetes,
-                               #Hyperlipidemia,Family_History,Previous_Heart_Attack)
   if(!length(catData) == 0 && !length(contData) == 0)
   {
     synthetic_data <- cbind(contData, catData)
@@ -124,18 +144,18 @@ simulation <- function(seed = 403, n = NULL,
     synthetic_data <- catData
   }
 
-  if(is.null(outcome_model)){
-    if(length(unique(data[[outcome]])) != 2){
-      stop("outcome_model currently only works for binary outcomes")
-    }
-    formula <- as.formula(paste(outcome,"~."))
-    outcome_model <- glm(formula, family = binomial, data = data)
+  predictors <- c(contVars,catVars)
+  if(length(unique(data[[outcome]])) != 2){
+    stop("outcome model currently only works for binary outcomes")
   }
+  formula <- stats::as.formula(paste(outcome,"~",paste(predictors,collapse="+")))
+  outcome_model <- stats::glm(formula, family = binomial, data = data)
 
-  synthetic_data$p_hat <- predict(outcome_model, newdata = synthetic_data, type = "response")
+
+  synthetic_data$p_hat <- stats::predict(outcome_model, newdata = synthetic_data, type = "response")
   synthetic_data[[outcome]] <- ifelse(synthetic_data$p_hat >= 0.5, 1, 0)
   synthetic_data <- synthetic_data |>
-  select(-p_hat)
+    dplyr::select(-p_hat)
 
   return(synthetic_data)
 

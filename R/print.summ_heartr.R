@@ -1,31 +1,29 @@
-#' print.summ_heartr
+#' Print summ_heartr output
 #'
-#' Provides a nice tabulation for the output of  code{link{summ_heartr}}.
+#' Provides a nice customisable table for the output of the summ_heartr function.
 #'
-#' @param x An object of class \code{"summ_heartr"} outputted from the \code{link{summ_heartr}} function.
+#' @param x An object of class \code{"summ_heartr"} outputted from the summ_heartr function.
+#' @param bordercolour Colour of the cell borders. Must be in quotations. Default colour of pink is used.
+#' @param fillcolour Colour of the Variable cells. Must be in quotations. Default colour of #FFEDFB is used
+#' @param font Google style used in the table. Must be a Google font which can be found \href{https://fonts.google.com/}{here}.
 #' @param ... Catches unused arguments to \code{print} (not currently implemented).
 #'
 #' @return An aesthetically pleasing table nicely displaying the summary statistics.
 #'
+#' @seealso \code{\link{print}}, \code{\link{summ_heartr}}
+#'
 #' @export
+#' @author Ciara Olohan - <\email{ciara.olohan.2023@@mumail.ie}>
 #' @importFrom gt "gt" "tab_header" "md" "cols_label" "tab_style" "cell_borders" "cols_width"
 #' "px" "cells_body" "cell_fill" "opt_table_font" "google_font" "cols_align"
 #' @importFrom dplyr "everything"
-#' @author Ciara Olohan - <\email{ciara.olohan.2023@@mumail.ie}>
-#' @seealso \code{\link{print}}, \code{\link{summ_heartr}}
 #' @examples
 #' # example code
 #'
 #'
 #'
 #'
-#'
-
-
-# dealing with 'no visible binding' note as recommended in lecture 11
-utils::globalVariables("Variable")
-
-print.summ_heartr<- function(x, ...) {
+print.summ_heartr<- function(x, bordercolour = "pink", fillcolour = "#FFEDFB",font = "Roboto Condensed", ...) {
 
 
   if(!inherits(x, "summ_heartr")) stop("x must be of class summ_heartr")
@@ -47,7 +45,7 @@ print.summ_heartr<- function(x, ...) {
       SD = gt::md("**Standard, <br>Deviation**"),
       Var = gt::md("**Variance**")) |>
     gt::tab_style(
-      style = gt::cell_borders( color = "pink"),
+      style = gt::cell_borders( color = bordercolour),
       locations = gt::cells_body())  |>
     gt::cols_width(
       Variable ~ gt::px(90),
@@ -63,8 +61,8 @@ print.summ_heartr<- function(x, ...) {
       locations = gt::cells_body(
         columns = Variable,
         rows = dplyr::everything()),
-      style = gt::cell_fill(color="#FFEDFB")) |>
-    gt::opt_table_font(font = gt::google_font("Roboto Condensed"),
+      style = gt::cell_fill(color= fillcolour)) |>
+    gt::opt_table_font(font = gt::google_font(font),
                        weight = 450) |>
     gt::cols_align("center")
 
@@ -72,6 +70,6 @@ print.summ_heartr<- function(x, ...) {
   invisible(x)
 }
 
-
+utils::globalVariables("Variable")
 
 
