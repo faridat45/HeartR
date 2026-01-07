@@ -2,8 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-<<<<<<< HEAD
-
-=======
-bolu_test_stuff.R
->>>>>>> 873a7170aac6a6a2ad4ed3fdd449ec6c7f4eae26
+inst/doc
+/doc/
+/Meta/

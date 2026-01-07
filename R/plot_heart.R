@@ -39,9 +39,9 @@ utils::globalVariables(c("..density..","Var1","Var2","Freq"))
 #' # Correlation matrix
 #' plot_heart(heart, "correlation")
 #'
-#' @importFrom ggplot2 ggplot aes geom_histogram geom_density geom_point geom_boxplot
-#' @importFrom ggplot2 geom_tile geom_text scale_fill_gradient2 labs theme_minimal aes_string
-#' @importFrom stats cor
+#' @importFrom ggplot2 "ggplot" "aes" "geom_histogram" "geom_density" "geom_point" "geom_boxplot"
+#' @importFrom ggplot2 "geom_tile" "geom_text" "scale_fill_gradient2" "labs" "theme_minimal" "aes_string"
+#' @importFrom stats "cor"
 #' @export
 plot_heart <- function(data,
                        type = c("hist", "density", "scatter", "boxplot", "correlation"),

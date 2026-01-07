@@ -1,7 +1,7 @@
 # dealing with 'no visible binding' note as recommended in lecture 11
 utils::globalVariables(c("p_hat","heart_dat"))
 
-#' Simulation
+#' simulation
 #'
 #' This function generates reproducible synthetic datasets, suitable for binary
 #' classification. The current version only works for datasets in which the response
@@ -18,15 +18,17 @@ utils::globalVariables(c("p_hat","heart_dat"))
 #' \code{NULL} then all factor/ categorical variables, excluding the outcome,
 #' are used
 #' @param outcome name of the binary outcome variable in \code{data}
+#' @param thres numeric threshold between 0 and 1 used to convert predicted probabilities
+#' into binary outcomes. Default set to 0.5.
 #' @param mu optional named vector of means used to simulate continuous variables
 #' @param sigma optional covariance matrix to simulate continuous variables.
 #'
 #' @return A synthetic dataset with continuous, categorical and outcome variables
 #'
-#' @importFrom MASS mvrnorm
-#' @importFrom stats glm cov predict binomial as.formula
-#' @importFrom utils data
-#' @importFrom dplyr select setdiff where
+#' @importFrom MASS "mvrnorm"
+#' @importFrom stats "glm" "cov" "predict" "binomial" "as.formula"
+#' @importFrom utils "data"
+#' @importFrom dplyr "select" "setdiff" "where"
 #'
 #' @export
 #' @author Faridat Adeniji - <\email{faridaadeniji@@gmail.com}>
@@ -36,19 +38,26 @@ utils::globalVariables(c("p_hat","heart_dat"))
 #'
 #' sim_data2 <- simulation(seed = 23, n = 50)
 #'
-#' sim_data3 <- simulation(data = heart_dat, n = 100,
-#'   mu = c(age = 55, cholesterol = 220, restingBP = 130))
-#'
-#' sim_dat4 <- simulation(data = heart_dat, n = 80,
-#' contVars = c("age", "cholesterol","restingBP"),
-#' catVars = c("sex","chestPT","exerAngina")
+#' sim_data3 <- simulation(
+#'   data = heart_dat,
+#'   n = 100,
+#'   mu = c(age = 55, cholesterol = 220, restingBP = 130)
 #' )
 #'
-#' sim_dat5 <- simulation(data = heart_dat, n = 80,
-#' contVars = c("age", "cholesterol","restingBP"),
-#' catVars = c("sex","chestPT","exerAngina"),
-#' sigma = cov(heart_dat[, c("age", "cholesterol","restingBP")])
+#' sim_dat4 <- simulation(
+#'   data = heart_dat,
+#'   n = 80,
+#'   contVars = c("age", "cholesterol","restingBP"),
+#'   catVars = c("sex","chestPT","exerAngina")
 #' )
+#'
+# sim_dat5 <- simulation(
+#   data = heart_dat,
+#   n = 100,
+#   contVars = c("age", "cholesterol","restingBP"),
+#   catVars = c("sex","chestPT","exerAngina"),
+#   sigma = cov(heart_dat[, c("age", "cholesterol","restingBP")])
+# )
 #'
 #' sim_mtcars <- simulation(data = mtcars, outcome = "am")
 simulation <- function(seed = 403, n = NULL,
@@ -56,6 +65,7 @@ simulation <- function(seed = 403, n = NULL,
                        contVars = NULL,
                        catVars = NULL,
                        outcome = "target",
+                       thres = 0.5,
                        mu = NULL, sigma = NULL){
   # Load heart dataset if data = NULL
   if(is.null(data)){
@@ -63,6 +73,9 @@ simulation <- function(seed = 403, n = NULL,
     data <- heart_dat
   }
   set.seed(seed)
+  if(!is.numeric(thres)||thres <=0||thres>=1){
+    stop("thres must be a single number between 0 and 1 (exclusive)")
+  }
 
   if(is.null(n)){
     n <- nrow(data)
@@ -129,18 +142,19 @@ simulation <- function(seed = 403, n = NULL,
 
   catData <- lapply(catVars, function(x){
     probs <- prop.table(table(data[[x]]))
-    sample(names(probs), n, replace = TRUE, prob = probs)
+    sampledDat <- sample(names(probs), n, replace = TRUE, prob = probs)
+    factor(sampledDat, levels = levels(data[[x]]))
   })
   catData <- as.data.frame(catData)
   names(catData) <- catVars
 
-  if(!length(catData) == 0 && !length(contData) == 0)
+  if(length(catData) != 0 && length(contData) != 0)
   {
     synthetic_data <- cbind(contData, catData)
-  }else if(length(catData) == 0 && !length(contData) == 0){
+  }else if(length(catData) == 0 && length(contData) != 0){
     synthetic_data <- contData
 
-  }else if(!length(catData) == 0 && length(contData) == 0){
+  }else if(length(catData) != 0 && length(contData) == 0){
     synthetic_data <- catData
   }
 
@@ -148,12 +162,17 @@ simulation <- function(seed = 403, n = NULL,
   if(length(unique(data[[outcome]])) != 2){
     stop("outcome model currently only works for binary outcomes")
   }
+
+  if(!is.factor(data[[outcome]])){
+    data[[outcome]] <- as.factor(data[[outcome]])
+  }
   formula <- stats::as.formula(paste(outcome,"~",paste(predictors,collapse="+")))
   outcome_model <- stats::glm(formula, family = binomial, data = data)
 
+  outcomeLevels <- levels(data[[outcome]])
 
   synthetic_data$p_hat <- stats::predict(outcome_model, newdata = synthetic_data, type = "response")
-  synthetic_data[[outcome]] <- ifelse(synthetic_data$p_hat >= 0.5, 1, 0)
+  synthetic_data[[outcome]] <- factor(ifelse(synthetic_data$p_hat >= thres, outcomeLevels[2], outcomeLevels[1]))
   synthetic_data <- synthetic_data |>
     dplyr::select(-p_hat)
 

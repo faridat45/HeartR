@@ -1,6 +1,7 @@
 # dealing with 'no visible binding' note as recommended in lecture 11
 utils::globalVariables(".data")
 
+#' plot_summary
 #' An interactive histogram plot with mean and median
 #'
 #' This function create a histogram based on the selected variable from the data
@@ -19,7 +20,7 @@ utils::globalVariables(".data")
 #' @export
 #'
 #'
-Plot <- function(data,var){
+plot_summary <- function(data,var){
 
   mu   <- mean(data[[var]], na.rm = TRUE)
   median1 <- median(data[[var]], na.rm = TRUE)
