@@ -18,10 +18,10 @@ utils::globalVariables(".data")
 #' @importFrom plotly "ggplotly"
 #' @export
 #' @examples
-#' plot_summary(heart_dat, "age")
+#' summ_heartrplot(heart_dat, "age")
 #'
 #'
-plot_summary <- function(data,var){
+summ_heartrplot <- function(data,var){
 
   mu   <- mean(data[[var]], na.rm = TRUE)
   median1 <- median(data[[var]], na.rm = TRUE)
@@ -34,14 +34,12 @@ plot_summary <- function(data,var){
       alpha = 0.7
     ) +
     ggplot2::geom_vline(
-      xintercept = mu,
-      color = "yellow",
+      aes(xintercept = mu, color = "Mean"),
       linetype = "dashed",
       linewidth = 1
     ) +
     ggplot2::geom_vline(
-      xintercept = median1,
-      color = "pink",
+      aes(xintercept = median1,color = "Median"),
       linetype = "dotted",
       linewidth = 1
     ) +

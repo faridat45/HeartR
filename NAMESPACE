@@ -2,9 +2,9 @@
 
 S3method(print,summ_heartr)
 export(plot_heart)
-export(plot_summary)
 export(simulation)
 export(summ_heartr)
+export(summ_heartrplot)
 importFrom(MASS,"mvrnorm")
 importFrom(dplyr,"everything")
 importFrom(dplyr,"select")

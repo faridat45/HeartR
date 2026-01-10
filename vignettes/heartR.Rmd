@@ -100,18 +100,21 @@ summTable <- summ_heartr(heart_dat$age, heart_dat$cholesterol)
 summTable
 ```
 
-`print.summ_heartr`
+## `print.summ_heartr`
 The `print.summ_heartr` method prints the output of `summ_heartr` in a formatted and visually appealing table customisable by font and colour.
-
-`summ_heartrplot`
-This is a function that plots an interactive histogram, it shows the distribution of the selected numeric variables, with the mean displayed as a dashed line 
-and the median as a dotted line. This plot provides a visual interpretation of the summary statistics produced by print.summ_heartr.
 
 ```{r, results='hide'}
 bpage_summary <- summ_heartr(heart_dat$restingBP , heart_dat$age)
 print(bpage_summary, bordercolour = "purple", fillcolour = "pink")
 ```
 
+## `summ_heartrplot`
+This is a function that plots an interactive histogram, it shows the distribution of the selected numeric variables, with the mean displayed as a dashed line 
+and the median as a dotted line. This plot provides a visual interpretation of the summary statistics produced by `print.summ_heartr`.
 
+```{r}
+num <- summ_heartrplot(heart_dat, "age")
+num
+```
 
 
