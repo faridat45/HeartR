@@ -38,10 +38,10 @@ To ensure that the devtools package is installed, type the following in the R co
 install.packages("devtools")
 ```
 
-The latest version of the package can be installed and all associated functions loaded from __HeartR__ [GitHub page](https://github.com/faridat45/heartR.git) using the command below:
+The latest version of the package can be installed and all associated functions loaded from __HeartR__ [GitHub page](https://github.com/faridat45/HeartR.git) using the command below:
 
 ```{r, eval=FALSE}
-devtools::install_github('faridat45/heartR')
+devtools::install_github('faridat45/HeartR')
 library(HeartR)
 ```
 
@@ -78,7 +78,7 @@ The synthetic datasets generated using `simulation` can work together with the v
 ```{r}
 sim_data <- simulation(
   data = heart_dat,
-  n = 20,
+  n = 50,
   contVars = c("age", "cholesterol","restingBP"),
   catVars = c("sex","chestPT","exerAngina")
 )
@@ -89,7 +89,7 @@ utils::head(sim_data)
 plot_heart(sim_data, "boxplot", var_x = "age", var_y = "target")
 ```
 
-This function is especially useful in cases in teaching and academic environments, where realistic data is needed but access to real patient observations is limited.
+This function is especially useful in cases such as teaching and academic environments, where realistic data is needed but access to real patient observations is limited.
 
 ## `summ_heartr()`
 
@@ -100,10 +100,18 @@ summTable <- summ_heartr(heart_dat$age, heart_dat$cholesterol)
 summTable
 ```
 
-## `print.summ_heartr`
+`print.summ_heartr`
+The `print.summ_heartr` method prints the output of `summ_heartr` in a formatted and visually appealing table customisable by font and colour.
 
-The `print.summ_heartr` method prints the output of `summ_heartr` in a formatted and visually appealing table. 
-
-## `summ_heartrplot`
+`summ_heartrplot`
 This is a function that plots an interactive histogram, it shows the distribution of the selected numeric variables, with the mean displayed as a dashed line 
 and the median as a dotted line. This plot provides a visual interpretation of the summary statistics produced by print.summ_heartr.
+
+```{r, results='hide'}
+bpage_summary <- summ_heartr(heart_dat$restingBP , heart_dat$age)
+print(bpage_summary, bordercolour = "purple", fillcolour = "pink")
+```
+
+
+
+

@@ -20,9 +20,8 @@ __HeartR__ is an R package designed for educational purposes to explore, summari
   1. `plot_heart`: a function that provides multiple visualisation options
   2. `simulation`: for generating a synthetic heart disease dataset. However it may be used for other datasets with binary outcomes
   3. `summ_heartr`: for creating a list of summary statistics that will be used further in the `print.summ_heartr` method
-  4. `summ_heartrplot`: for generating interactive plots of summary statistics that was gotten from `print.summ_heartr`
-
-  5. An S3 `print.summ_heartr` method: for providing an appealing customisable table for the output of the summ_heartr function
+  4. An S3 `print.summ_heartr` method: for providing an appealing customisable table for the output of the summ_heartr function.
+  5. `summ_heartrplot`: for generating interactive plots of summary statistics that was gotten from `print.summ_heartr`.
 
 ## Installation
 
@@ -30,7 +29,7 @@ You can install the development version of HeartR from [GitHub](https://github.c
 
 ```{r, eval=FALSE}
 # install.packages("pak")
-pak::pak("faridat45/heartR")
+pak::pak("faridat45/HeartR")
 ```
 
 ## Example

@@ -18,7 +18,7 @@ utils::globalVariables(".data")
 #' @importFrom plotly "ggplotly"
 #' @export
 #' @examples
-#' plot_summary(heart_dat, "Age")
+#' plot_summary(heart_dat, "age")
 #'
 #'
 plot_summary <- function(data,var){

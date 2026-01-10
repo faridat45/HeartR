@@ -68,55 +68,58 @@ plot_heart <- function(data,
 
     # Histogram
     hist =
-      ggplot(data, aes_string(x = data[[var_x]])) +
-      geom_histogram(aes(y = ..density..),
+      ggplot2::ggplot(data, ggplot2::aes_string(x = data[[var_x]])) +
+      ggplot2::geom_histogram(ggplot2::aes(y = ..density..),
                      bins = 30,
                      fill = "skyblue",
                      color = "black") +
-      geom_density(color = "red", linewidth = 1) +
-      labs(title = paste("Distribution of", var_x),
+      ggplot2::geom_density(color = "red", linewidth = 1) +
+      ggplot2::labs(title = paste("Distribution of", var_x),
            x = var_x,
            y = "Density") +
-      theme_minimal(),
+      ggplot2::theme_minimal(),
 
     # Density
     density =
-      ggplot(data, aes_string(x = var_x)) +
-      geom_density(fill = "purple", alpha = 0.4) +
-      labs(title = paste("Density of", var_x),
+      ggplot2::ggplot(data, ggplot2::aes_string(x = var_x)) +
+      ggplot2::geom_density(fill = "purple", alpha = 0.4) +
+      ggplot2::labs(title = paste("Density of", var_x),
            x = var_x,
            y = "Density") +
-      theme_minimal(),
+      ggplot2::theme_minimal(),
+
+    # Scatter plot
+    scatter =
+      ggplot2::ggplot(data, ggplot2::aes_string(x = var_x, y = var_y))+
+      ggplot2::geom_point() +
+      ggplot2::labs(title = paste(var_x, "vs", var_y),
+           x = var_x,
+           y = var_y) +
+      ggplot2::theme_minimal(),
 
     # Boxplot
     boxplot =
-      ggplot(data, aes_string(x = var_x, y = var_y)) +
-      geom_boxplot(fill = "skyblue") +
-      labs(title = paste(var_y, "by", var_x),
+      ggplot2::ggplot(data, ggplot2::aes_string(x = var_x, y = var_y)) +
+      ggplot2::geom_boxplot(fill = "skyblue") +
+      ggplot2::labs(title = paste(var_y, "by", var_x),
            x = var_x,
            y = var_y) +
-      theme_minimal(),
+      ggplot2::theme_minimal(),
 
     # Correlation matrix
     correlation = {
       num_data <- data[sapply(data, is.numeric)] # convert the factors to numeric
-      cor_df <- as.data.frame(as.table(cor(num_data)))
-
-      ggplot(cor_df, aes(Var1, Var2, fill = Freq)) +
-        geom_tile() +
-        geom_text(aes(label = round(Freq, 2)), size = 3) +
-        scale_fill_gradient2(low = "blue",
+      cor_df <- as.data.frame(as.table(stats::cor(num_data)))
+      ggplot2::ggplot(cor_df, ggplot2::aes(Var1, Var2, fill = Freq)) +
+        ggplot2::geom_tile() +
+        ggplot2::geom_text(ggplot2::aes(label = round(Freq, 2)), size = 3) +
+        ggplot2::scale_fill_gradient2(low = "blue",
                              mid = "white",
                              high = "red",
                              midpoint = 0) +
-        labs(title = "Correlation Matrix") +
-        theme_minimal()
+        ggplot2::labs(title = "Correlation Matrix") +
+        ggplot2::theme_minimal()
     }
-  )
+    )
 }
-
-# head(data("heart_dat"))
-# head(heart_dat)
-
-
 

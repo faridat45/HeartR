@@ -15,12 +15,10 @@ one S3 method:
     However it may be used for other datasets with binary outcomes
 3.  `summ_heartr`: for creating a list of summary statistics that will
     be used further in the `print.summ_heartr` method
-4.  `summ_heartrplot`: for generating interactive plots of summary that was 
-gotten from `print.summ_heartr`
-
-    statistics
-5.  An S3 `print.summ_heartr` method: for providing an appealing
-    customisable table for the output of the summ_heartr function
+4.  An S3 `print.summ_heartr` method: for providing an appealing
+     customisable table for the output of the summ_heartr function.
+5.  `summ_heartrplot`: for generating interactive plots of summary
+    statistics that was gotten from `print.summ_heartr`.
 
 ## Installation
 
@@ -29,12 +27,12 @@ You can install the development version of HeartR from
 
 ``` r
 # install.packages("pak")
-pak::pak("faridat45/heartR")
+pak::pak("faridat45/HeartR")
 ```
 
 ## Example
 
-This is a basic example which shows how to generate synthetic data,
+This is a basic example which shows you how to generate synthetic data,
 adjusting the categorical and numeric variables included and number of
 observations:
 
@@ -49,12 +47,12 @@ sim_data <- simulation(
 )
 utils::head(sim_data)
 #>   age cholesterol restingBP sex chestPT exerAngina target
-#> 1  62         255       116   0       2          0      0
-#> 2  51         289       142   0       4          0      0
-#> 3  38         306       109   1       2          0      0
-#> 4  58         213       127   1       4          0      1
-#> 5  56         314       134   0       3          0      0
-#> 6  51         181       126   1       4          1      1
+#> 1  67         254       146   0       2          0      0
+#> 2  49         290       128   0       4          0      0
+#> 3  49         304       165   1       2          0      0
+#> 4  59         213       135   1       4          0      1
+#> 5  56         314       135   0       3          0      0
+#> 6  53         181       136   1       4          1      1
 ```
 
 From this dataset, plots can be generated using the `plot_heart`
