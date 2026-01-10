@@ -12,14 +12,16 @@ utils::globalVariables(".data")
 #' plot
 #'
 #' @return An interactive histogram produced by \code{plotly::ggplotly()}
-#'
+#' @seealso \code{\link{summ_heartr}}, \code{\link{print.summ_heartr}}
 #' @importFrom ggplot2 "ggplot" "aes" "geom_histogram" "geom_vline" "labs"
 #' "theme_minimal"
 #' @importFrom plotly "ggplotly"
 #' @export
+#' @examples
+#' plot_summary(heart_dat, "Age")
 #'
 #'
-Plot <- function(data,var){
+plot_summary <- function(data,var){
 
   mu   <- mean(data[[var]], na.rm = TRUE)
   median1 <- median(data[[var]], na.rm = TRUE)

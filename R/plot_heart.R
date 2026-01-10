@@ -39,21 +39,17 @@ utils::globalVariables(c("..density..","Var1","Var2","Freq"))
 #' # Correlation matrix
 #' plot_heart(heart, "correlation")
 #'
-#' @importFrom ggplot2 ggplot aes geom_histogram geom_density geom_point geom_boxplot
-#' @importFrom ggplot2 geom_tile geom_text scale_fill_gradient2 labs theme_minimal aes_string
-#' @importFrom stats cor
+#' @importFrom ggplot2 "ggplot" "aes" "geom_histogram" "geom_density" "geom_point" "geom_boxplot"
+#' @importFrom ggplot2 "geom_tile" "geom_text" "scale_fill_gradient2" "labs" "theme_minimal" "aes_string"
+#' @importFrom stats "cor"
 #' @export
-<<<<<<< HEAD
 
 
-plot_heart <- function(heart, type = c("hist", "density", "scatter", "boxplot", "correlation"),
-                       var_x = NULL, var_y = NULL) {
-=======
 plot_heart <- function(data,
                        type = c("hist", "density", "scatter", "boxplot", "correlation"),
                        var_x = NULL,
                        var_y = NULL) {
->>>>>>> d6ab3ba76ea3c72efc72dbf2e41fd6be85896091
+
 
   type <- match.arg(type)
 
@@ -118,11 +114,9 @@ plot_heart <- function(data,
     }
   )
 }
-<<<<<<< HEAD
-=======
+
 # head(data("heart_dat"))
 # head(heart_dat)
 
 
->>>>>>> d6ab3ba76ea3c72efc72dbf2e41fd6be85896091
 

@@ -15,8 +15,8 @@ A data frame with 745 observations and 12 variables:
  \item{cholesterol}{serum cholesterol in mg/dl (numeric)}
  \item{fastingBS}{fasting blood sugar in mg/dl
  (\code{0 = fbs <= 120 mg/dl, 1 = fbs > 120 mg/dl})}
- \item{restingECG}{resting electrocardiographic results, records the electrical signals in the heart
- (\code{0 = normal heart electrical activity, 1 = ST-T abnormality
+ \item{restingECG}{resting electrocardiographic results, records the electrical
+ signals in the heart (\code{0 = normal heart electrical activity, 1 = ST-T abnormality
  (suggests heart isn't getting enough oxygen),  2 = left ventricular hypertrophy
  pattern (suggests the heart's main pumping chamber is working harder than usual)})}
  \item{maxHeartRate}{maximum heart rate achieved (numeric)}

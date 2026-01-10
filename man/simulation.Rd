@@ -2,7 +2,7 @@
 % Please edit documentation in R/simulation.R
 \name{simulation}
 \alias{simulation}
-\title{Simulation}
+\title{simulation}
 \usage{
 simulation(
   seed = 403,
@@ -11,6 +11,7 @@ simulation(
   contVars = NULL,
   catVars = NULL,
   outcome = "target",
+  thres = 0.5,
   mu = NULL,
   sigma = NULL
 )
@@ -33,6 +34,9 @@ are used}
 
 \item{outcome}{name of the binary outcome variable in \code{data}}
 
+\item{thres}{numeric threshold between 0 and 1 used to convert predicted probabilities
+into binary outcomes. Default set to 0.5.}
+
 \item{mu}{optional named vector of means used to simulate continuous variables}
 
 \item{sigma}{optional covariance matrix to simulate continuous variables.}
@@ -51,19 +55,19 @@ sim_data <- simulation(seed = 123)
 
 sim_data2 <- simulation(seed = 23, n = 50)
 
-sim_data3 <- simulation(data = heart_dat, n = 100,
-  mu = c(age = 55, cholesterol = 220, restingBP = 130))
-
-sim_dat4 <- simulation(data = heart_dat, n = 80,
-contVars = c("age", "cholesterol","restingBP"),
-catVars = c("sex","chestPT","exerAngina")
+sim_data3 <- simulation(
+  data = heart_dat,
+  n = 100,
+  mu = c(age = 55, cholesterol = 220, restingBP = 130)
 )
 
-sim_dat5 <- simulation(data = heart_dat, n = 80,
-contVars = c("age", "cholesterol","restingBP"),
-catVars = c("sex","chestPT","exerAngina"),
-sigma = cov(heart_dat[, c("age", "cholesterol","restingBP")])
+sim_dat4 <- simulation(
+  data = heart_dat,
+  n = 80,
+  contVars = c("age", "cholesterol","restingBP"),
+  catVars = c("sex","chestPT","exerAngina")
 )
+
 
 sim_mtcars <- simulation(data = mtcars, outcome = "am")
 }
