@@ -21,7 +21,11 @@ frame. The vertical lines shows the mean and the median, and the plot is
 converted to an interactive plot using \pkg{plotly}.
 }
 \examples{
+<<<<<<< HEAD:man/summ_heartrplot.Rd
 summ_heartrplot(heart_dat, "age")
+=======
+plot_summary(heart_dat, "age")
+>>>>>>> 977d938e1dd2cf7bc94b9aee14204f04e7ec7e27:man/plot_summary.Rd
 
 
 }

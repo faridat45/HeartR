@@ -8,7 +8,15 @@ Authors@R: c(
     person("Irene", "Adetola", , "Irene.adetola.2021@mumail.ie", role = "aut"),
     person("Boluwatife", "Farombi", , "boluwatife.farombi.2023@mumail.ie", role = "aut")
   )
+<<<<<<< HEAD
 Description: HeartR is a R package created for exploring, summarising and stimulating the heart disease data. It provides functions for data visualization, generating synthetic data and providing summaring statistic. It's useful for teaching allowing users to work with realistic health-related data without relying on real patients data. 
+=======
+Description: HeartR is a R package created for exploring, summarising and
+    stimulating the heart disease data. It provides functions for data
+    visualization, generating synthetic data and providing summary
+    statistics. It's useful for teaching allowing users to work with
+    realistic health-related data without relying on real patients data.
+>>>>>>> 977d938e1dd2cf7bc94b9aee14204f04e7ec7e27
 License: GPL (>= 3)
 URL: https://github.com/faridat45/HeartR.git
 Depends: 
@@ -29,5 +37,6 @@ VignetteBuilder:
     knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
+Language: en-GB
 LazyData: true
 RoxygenNote: 7.3.3
