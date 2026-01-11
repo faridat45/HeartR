@@ -20,25 +20,35 @@ library(HeartR)
 
 ## Introduction
 
-__HeartR__ is an R package designed for educational purposes to explore, summarise and simulate heart disease related data. Informative plots may be created to further analyse the distribution of variables and correlation between features. The package provides several functions and one S3 method: 
+__HeartR__ is an R package designed for educational purposes to explore, 
+summarise and simulate heart disease related data. Informative plots may be 
+created to further analyse the distribution of variables and correlation between 
+features. The package provides several functions and one S3 method: 
 
   1. `plot_heart`: a function that provides multiple visualisation options
   2. `simulation`: for generating a synthetic heart disease dataset. However it 
   may be used for other datasets with binary outcomes
-  3. `summ_heartr`: for creating a list of summary statistics that will be used further in the `print.summ_heartr` method
- 4. An S3 `print.summ_heartr` method: for providing an appealing customisable table for the output of the summ_heartr function
- 5. `summ_heartrplot`: for generating interactive plots of summary statistics that was gotten from `print.summ_heartr`
+  3. `summ_heartr`: for creating a list of summary statistics that will be used 
+  further in the `print.summ_heartr` method
+ 4. An S3 `print.summ_heartr` method: for providing an appealing customisable 
+ table for the output of the summ_heartr function
+ 5. `summ_heartrplot`: for generating interactive plots of summary statistics 
+ that was gotten from `print.summ_heartr`
 
 ## Installation
 
-The __HeartR__ package is not currently available on CRAN. It can be installed from GitHub using the `devtools` package.  
-To ensure that the devtools package is installed, type the following in the R command prompt:
+The __HeartR__ package is not currently available on CRAN. It can be installed 
+from GitHub using the `devtools` package.  
+To ensure that the devtools package is installed, type the following in the R 
+command prompt:
 
 ```{r, eval=FALSE}
 install.packages("devtools")
 ```
 
-The latest version of the package can be installed and all associated functions loaded from __HeartR__ [GitHub page](https://github.com/faridat45/HeartR.git) using the command below:
+The latest version of the package can be installed and all associated functions 
+loaded from __HeartR__ [GitHub page](https://github.com/faridat45/HeartR.git) 
+using the command below:
 
 ```{r, eval=FALSE}
 devtools::install_github('faridat45/HeartR')
@@ -47,16 +57,23 @@ library(HeartR)
 
 ## Heart Disease Dataset
 
-The dataset used in this package is adapted from the Heart Disease dataset published in the UCI Machine Learning Repository. The data is also available on IEEE DataPort:
+The dataset used in this package is adapted from the Heart Disease dataset 
+published in the UCI Machine Learning Repository. The data is also available on
+IEEE DataPort:
 
  - [UCI Machine Learning Repository (Heart Disease Dataset)](https://archive.ics.uci.edu/dataset/45/heart+disease)
  - [IEEE DataPort (Heart Disease Dataset)](https://ieee-dataport.org/open-access/heart-disease-dataset-comprehensive)
 
-For this package a cleaner and slightly smaller subset is used to facilitate visualisation and simulation. The original dataset consists of anonymised patient data collected for early heart disease detection research. 
+For this package a cleaner and slightly smaller subset is used to facilitate 
+visualisation and simulation. The original dataset consists of anonymised 
+patient data collected for early heart disease detection research. 
 
 ## `plot_heart()`
 
-This function generates plots for exploratory data analysis depending on the type of plot selected via the `type` argument. The `data` argument determines the dataset that will be utilized. `var_x` and `var_y` are the x and y values respectively of the plot.  
+This function generates plots for exploratory data analysis depending on the 
+type of plot selected via the `type` argument. The `data` argument determines 
+the dataset that will be utilized. `var_x` and `var_y` are the x and y values 
+respectively of the plot.  
 
 ```{r, warning=FALSE}
 library(ggplot2)
@@ -65,15 +82,27 @@ plot_heart(heart_dat, "boxplot", var_x = "age", var_y = "target")
 
 ## `simulation`
 
-This function imitates the structure and preserves statistical properties (e.g. mean and variance) of real data to generate synthetic data. This is ideal in the field of healthcare as it imitates real world data without exposing sensitive information. 
+This function imitates the structure and preserves statistical properties (e.g. 
+mean and variance) of real data to generate synthetic data. This is ideal in the 
+field of healthcare as it imitates real world data without exposing sensitive 
+information. 
 
-Continuous and categorical variables are simulated separately using appropriate methods. Continuous variables are simulated from a multivariate normal distribution using a mean vector and the covariance matrix. Categorical data is generated by sampling using the proportional frequency table for each variable.
+Continuous and categorical variables are simulated separately using appropriate 
+methods. Continuous variables are simulated from a multivariate normal 
+distribution using a mean vector and the covariance matrix. Categorical data is 
+generated by sampling using the proportional frequency table for each variable.
 
-The continuous variables and categorical variables are able to be adjusted using the `contVars` and `catVars` attributes. Additionally the covariance matrix(`sigma`) and named mean vector(`mu`) can be adjusted. A default classification threshold(`thres`) of 0.5 is used. The `seed` attribute allows for reproducibility. 
+The continuous variables and categorical variables are able to be adjusted using 
+the `contVars` and `catVars` attributes. Additionally the covariance 
+matrix(`sigma`) and named mean vector(`mu`) can be adjusted. A default 
+classification threshold(`thres`) of 0.5 is used. The `seed` attribute allows 
+for reproducibility. 
 
 ### Using simulated data with plot_heart
 
-The synthetic datasets generated using `simulation` can work together with the visualisation functions provided in `heartR`. Users are thus able to explore patient observations the same way as the original data.
+The synthetic datasets generated using `simulation` can work together with the 
+visualisation functions provided in `heartR`. Users are thus able to explore 
+patient observations the same way as the original data.
 
 ```{r}
 sim_data <- simulation(
@@ -89,11 +118,15 @@ utils::head(sim_data)
 plot_heart(sim_data, "boxplot", var_x = "age", var_y = "target")
 ```
 
-This function is especially useful in cases such as teaching and academic environments, where realistic data is needed but access to real patient observations is limited.
+This function is especially useful in cases such as teaching and academic 
+environments, where realistic data is needed but access to real patient 
+observations is limited.
 
 ## `summ_heartr()`
 
-This is a function that creates a list of summary statistics for one or more numeric variables. The `print.summ_heartr` method is automatically called in this function.
+This is a function that creates a list of summary statistics for one or more 
+numeric variables. The `print.summ_heartr` method is automatically called in 
+this function.
 
 ```{r, eval= FALSE}
 summTable <- summ_heartr(heart_dat$age, heart_dat$cholesterol)
@@ -101,7 +134,8 @@ summTable
 ```
 
 ## `print.summ_heartr`
-The `print.summ_heartr` method prints the output of `summ_heartr` in a formatted and visually appealing table customisable by font and colour.
+The `print.summ_heartr` method prints the output of `summ_heartr` in a 
+formatted and visually appealing table customisable by font and colour.
 
 ```{r, results='hide'}
 bpage_summary <- summ_heartr(heart_dat$restingBP , heart_dat$age)
@@ -109,8 +143,10 @@ print(bpage_summary, bordercolour = "purple", fillcolour = "pink")
 ```
 
 ## `summ_heartrplot`
-This is a function that plots an interactive histogram, it shows the distribution of the selected numeric variables, with the mean displayed as a dashed line 
-and the median as a dotted line. This plot provides a visual interpretation of the summary statistics produced by `print.summ_heartr`.
+This is a function that plots an interactive histogram, it shows the 
+distribution of the selected numeric variables, with the mean displayed as a 
+dashed line and the median as a dotted line. This plot provides a visual 
+interpretation of the summary statistics produced by `print.summ_heartr`.
 
 ```{r}
 num <- summ_heartrplot(heart_dat, "age")
