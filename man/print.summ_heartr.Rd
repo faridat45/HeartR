@@ -33,7 +33,8 @@ An aesthetically pleasing table nicely displaying the summary
 statistics.
 }
 \description{
-Provides a nice customisable table for the output of the summ_heartr function.
+Provides a nice customisable table for the output of the summ_heartr
+function.
 }
 \examples{
 # example code

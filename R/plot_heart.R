@@ -1,6 +1,7 @@
 utils::globalVariables(c("..density..","Var1","Var2","Freq"))
 #' Heart Data Plotting Function
-#' Aim: to Visualize the heart data and explore how predictors relate to heart
+#'
+#' Aim: To visualize the heart data and explore how predictors relate to heart
 #' disease.
 #' `plot_heart` allows users to explore their heart disease dataset visually.
 #' It provides multiple types of plots to investigate relationships between

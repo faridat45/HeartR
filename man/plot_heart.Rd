@@ -2,13 +2,7 @@
 % Please edit documentation in R/plot_heart.R
 \name{plot_heart}
 \alias{plot_heart}
-\title{Heart Data Plotting Function
-Aim: to Visualize the heart data and explore how predictors relate to heart
-disease.
-`plot_heart` allows users to explore their heart disease dataset visually.
-It provides multiple types of plots to investigate relationships between
-predictors and the response variable (`Heart_Disease`).
-Also able to explore relationship between predictors as well.}
+\title{Heart Data Plotting Function}
 \usage{
 plot_heart(
   data,
@@ -44,8 +38,7 @@ if not inputted, the response variable is used by default}
 A ggplot object showing the requested visualization.
 }
 \description{
-Heart Data Plotting Function
-Aim: to Visualize the heart data and explore how predictors relate to heart
+Aim: To visualize the heart data and explore how predictors relate to heart
 disease.
 `plot_heart` allows users to explore their heart disease dataset visually.
 It provides multiple types of plots to investigate relationships between
