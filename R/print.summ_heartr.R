@@ -1,6 +1,7 @@
 #' Print summ_heartr output
 #'
-#' Provides a nice customisable table for the output of the summ_heartr function.
+#' Provides a nice customisable table for the output of the summ_heartr
+#' function.
 #'
 #' @param x An object of class \code{"summ_heartr"} outputted from the
 #' summ_heartr function.

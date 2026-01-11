@@ -121,7 +121,7 @@ plot_heart <- function(data,
 
     # Correlation matrix
     correlation = {
-      num_data <- data[sapply(data, is.numeric)] # convert the factors to numeric
+      num_data <- data[sapply(data, is.numeric)] #convert the factors to numeric
       cor_df <- as.data.frame(as.table(stats::cor(num_data)))
       ggplot2::ggplot(cor_df, ggplot2::aes(Var1, Var2, fill = Freq)) +
         ggplot2::geom_tile() +
