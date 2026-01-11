@@ -4,22 +4,23 @@ utils::globalVariables(c("p_hat","heart_dat"))
 #' simulation
 #'
 #' This function generates reproducible synthetic datasets, suitable for binary
-#' classification. The current version only works for datasets in which the response
-#' variable has exactly two possible values.
+#' classification. The current version only works for datasets in which the
+#' response variable has exactly two possible values.
 #'
 #' @param seed random seed for reproducibility
-#' @param n number of rows in the synthetic datasets. Deaults to the number of rows in
-#' \code{data}.
+#' @param n number of rows in the synthetic datasets. Defaults to the number of
+#' rows in \code{data}.
 #' @param data dataset the user wishes to replicate. If \code{NULL}, heart
 #' disease dataset is used.
-#' @param contVars character vector of continuous numeric variables in \code{data}.
+#' @param contVars character vector of continuous numeric variables in
+#' \code{data}.
 #' If \code{NULL} then all numeric variables are used.
 #' @param catVars character vector of categorical variables in \code{data}. If
 #' \code{NULL} then all factor/ categorical variables, excluding the outcome,
 #' are used
 #' @param outcome name of the binary outcome variable in \code{data}
-#' @param thres numeric threshold between 0 and 1 used to convert predicted probabilities
-#' into binary outcomes. Default set to 0.5.
+#' @param thres numeric threshold between 0 and 1 used to convert predicted
+#' probabilities into binary outcomes. Default set to 0.5.
 #' @param mu optional named vector of means used to simulate continuous variables
 #' @param sigma optional covariance matrix to simulate continuous variables.
 #'
@@ -35,9 +36,10 @@ utils::globalVariables(c("p_hat","heart_dat"))
 #'
 #' @note
 #'
-#' Datasets like \code{mtcars} contains no categorical variables. However, variables
-#' (e.g. \code{cyl}, \code{gear}) may be considered to be of that nature. Ensure
-#' variables in any dataset is of the correct type before passing it to this function.
+#' Datasets like \code{mtcars} contains no categorical variables. However,
+#' variables (e.g. \code{cyl}, \code{gear}) may be considered to be of that
+#' nature. Ensure variables in any dataset is of the correct type before passing
+#' it to this function.
 #'
 #' @examples
 #' \dontrun{
