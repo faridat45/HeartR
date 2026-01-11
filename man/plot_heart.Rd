@@ -32,7 +32,7 @@ plot_heart(
 is required for "hist", "density", "scatter", and "boxplot" types.}
 
 \item{var_y}{Optional character string that specify variable to plot on the y-axis.
-if not inputed, the response variable is used by default}
+if not inputted, the response variable is used by default}
 }
 \value{
 A ggplot object showing the requested visualization.
